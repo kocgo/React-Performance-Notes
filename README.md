@@ -23,7 +23,7 @@ function loadCounter (){
   import('./Counter')
 }
 ```
-2) Multiple loading of the same module will use cache_  
+2) Multiple loading of the same module will use cache
 3) Create conditions
 ```jsx
   <label
@@ -31,3 +31,17 @@ function loadCounter (){
     onMouseEnter={loadCounter}
   >
 ```
+
+### Prefetching with Webpack Magic Comments
+```javascript
+import(/* webpackPrefetch: true */ './some-module.js')
+```
+
+When webpack sees this comment, it adds this to your document's `head`:
+
+```javascript
+<link rel="prefetch" as="script" href="/static/js/1.chunk.js">
+```
+
+With this, the browser will automatically load this JavaScript file into the
+browser cache so it's ready ahead of time.
