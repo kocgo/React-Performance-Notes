@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import Display from "./components/Display";
 
-const App = () => {
-  return <p>hello</p>;
-};
+const App = () => <Display />;
 
 ReactDOM.render(<App />, document.getElementById("app"));

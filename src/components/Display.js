@@ -1,8 +1,8 @@
 import React from "react";
 
-const Counter = React.lazy(() => import("../Counter"));
+const Counter = React.lazy(() => import("./Counter"));
 
-function App() {
+const Display = () => {
   const [showCounter, setshowCounter] = React.useState(false);
 
   return (
@@ -31,5 +31,5 @@ function App() {
       </div>
     </div>
   );
-}
-export default App;
+};
+export default Display;
