@@ -48,13 +48,29 @@ browser cache so it's ready ahead of time.
 
 
 ### Workerize
+No changes to the webpack config are necessary, the loader syntax will bundle the `worker` code automatically into a separate file.
+
 1) `npm install -D workerize-loader`
-2) Webpack Config
-```js
-// webpack.config.js
-{
-  loader: 'workerize-loader',
-  options: { inline: true }
+2) Create your module in a seperate file
+```jsx
+// block for `time` ms, then return the number of loops we could run in that time:
+export function expensive(time: number) {
+    let start = Date.now();
+    let count = 0;
+    while (Date.now() - start < time) count++
+    return count
 }
 ```
-3) 
+3) Workerize your module
+```jsx
+/*
+This import line is creating a factory! not loading the module directly!
+*/
+import worker from 'workerize-loader!./worker'
+
+let instance = worker(); // `new` is optional
+
+instance.expensive(1000).then(count => {
+    console.log(`Ran ${count} loops`);
+});
+``` 
