@@ -45,3 +45,16 @@ When webpack sees this comment, it adds this to your document's `head`:
 
 With this, the browser will automatically load this JavaScript file into the
 browser cache so it's ready ahead of time.
+
+
+### Workerize
+1) `npm install -D workerize-loader`
+2) Webpack Config
+```js
+// webpack.config.js
+{
+  loader: 'workerize-loader',
+  options: { inline: true }
+}
+```
+3) 
