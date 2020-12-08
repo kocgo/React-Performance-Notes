@@ -74,3 +74,32 @@ instance.expensive(1000).then(count => {
     console.log(`Ran ${count} loops`);
 });
 ``` 
+
+### Memoizing Context Value
+Context updates will re-render all components which are being wrapped.
+
+Problem: 
+Every time the <CountProvider /> is re-rendered, the value is brand new, 
+so even though the count value itself may stay the same, all component consumers will be re-rendered.
+```
+const CountContext = React.createContext()
+
+function CountProvider(props) {
+  const [count, setCount] = React.useState(0)
+  const value = [count, setCount]
+  return <CountContext.Provider value={value} {...props} />
+}
+```
+
+Solution:
+If value gets memoized with `React.useMemo`, they will not re-render.
+
+```jsx
+const CountContext = React.createContext()
+
+function CountProvider(props) {
+  const [count, setCount] = React.useState(0)
+  const value = React.useMemo(() => [count, setCount], [count])
+  return <CountContext.Provider value={value} {...props} />
+}
+```
